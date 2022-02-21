@@ -25,10 +25,8 @@ export default function SearchBar({onSelect}) {
   }
 
   async function doSearch() {
-    //TODO: search here and update character list
-    var data = (await axios.get(`/api/people/?search=${query}`)).data;
-    console.log(data.results)
-    setCharacters(data.results);
+    var characters = (await axios.get(`/api/search/?q=${query}`)).data;
+    setCharacters(characters);
   }
 
   function onChange(text) {

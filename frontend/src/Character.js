@@ -29,7 +29,7 @@ function AboutMe({character}) {
         <li>Hair color: {character.hair_color}</li>
         <li>Eye color: {character.eye_color}</li>
         <li>Birth year: {character.birth_year}</li>
-        <li>Species: TODO</li>
+        <li>Species: {character.species}</li>
       </ul>
     </StyledPaper>
   )
@@ -55,12 +55,31 @@ function StarshipList() {
   );
 }
 
-export default function Character({character}) {
+export default function Character({characterID}) {
+  var [character, setCharacter] = useState();
+  var [loading, setLoading] = useState(false);
+
+  async function getCharacterData(id) {
+    var character = (await axios.get(`/api/character/${id}`)).data;
+    console.log(character)
+    setCharacter(character);
+  }
+
+  useEffect(() => {
+    if(characterID == null) {
+      return
+    }
+
+    getCharacterData(characterID);
+
+    console.log("character id updated to", characterID);
+  }, [characterID]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <AboutMe character={character}/>
+          {character ? <AboutMe character={character}/> : null}
         </Grid>
         <Grid item xs={4}>
           TODO

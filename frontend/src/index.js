@@ -1,9 +1,15 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { yellow, red } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -20,7 +26,13 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <Router>
+        <Switch>
+          <Route exact path="/:characterID?">
+            <App />
+          </Route>
+        </Switch>
+      </Router>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
