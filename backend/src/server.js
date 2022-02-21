@@ -7,8 +7,6 @@ const utils = require("./utils");
 const app = express();
 const port = parseInt(process.env["PORT"] || 80);
 
-app.use(express.static('public'));
-
 app.get('/api/search', ash(async (req, res) => {
   var query = req.query.q;
   var characters = await swapi.search(query);
@@ -39,6 +37,12 @@ app.get('/api/character/:id', ash(async (req, res) => {
 
   res.json(character);
 }));
+
+app.use('/static', express.static("public/static"));
+
+app.get('*', function(req, res) {
+  res.sendFile('index.html', {root: "public"});
+});
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
