@@ -60,7 +60,7 @@ export default function SearchBar({onSelect}) {
       <form onSubmit={onSubmit}>
         <Box sx={{ m: 1, pb: 2 }}><Typography>Search for a character</Typography></Box>
         <Grid container spacing={2}>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <Autocomplete
               options={characters}
               loading={loading}
@@ -76,9 +76,6 @@ export default function SearchBar({onSelect}) {
               />}
               getOptionLabel={(option) => option.name}
             />
-          </Grid>
-          <Grid item xs={2}>
-            <Button variant="contained" style={{width:"100%", height:"100%"}}>Go!</Button>
           </Grid>
         </Grid>
       </form>

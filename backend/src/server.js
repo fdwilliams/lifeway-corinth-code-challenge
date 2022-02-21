@@ -4,7 +4,7 @@ const swapi = require("./swapi");
 const utils = require("./utils");
 
 const app = express();
-const port = 3001;
+const port = parseInt(process.env["PORT"] || 80);
 
 app.get('/api/search', ash(async (req, res) => {
   var query = req.query.q;
