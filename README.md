@@ -6,4 +6,4 @@
 * As of 2/20/2022, the swapi.dev site was down; this was mitigated by using a backend gateway API
 
 ## TODO
-* docker
+* documentation
