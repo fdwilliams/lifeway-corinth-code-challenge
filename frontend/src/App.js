@@ -3,7 +3,7 @@ import {useHistory, useParams} from "react-router-dom";
 import axios from "axios";
 
 import Container from "@mui/material/Container";
-import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 import SearchBar from "./SearchBar";
 import Character from "./Character";
@@ -20,10 +20,10 @@ export default function App() {
 
   return (
     <Container>
-      <Box height="100vh">
+      <Stack spacing={1}>
         <SearchBar onSelect={onSelect}/>
         {characterID ? <Character characterID={characterID}/> : null}
-      </Box>
+      </Stack>
     </Container>
   );
 }

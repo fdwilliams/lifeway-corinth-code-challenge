@@ -11,47 +11,75 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#222227",
-  padding: theme.spacing(1)
-}));
+import LoadingCircle from "./LoadingCircle";
+import StyledPaper from "./StyledPaper";
 
 function AboutMe({character}) {
+  var species = character.species.length > 0 ? (
+    <ul>
+      {character.species.map((e) => (<li>{e}</li>))}
+    </ul>
+  ) : "None";
+
   return (
-    <StyledPaper>
+    <StyledPaper variant="outlined">
+      <Box sx={{ m: 1 }}><Typography variant="h5" sx={{ color: 'primary.main' }}>About Me</Typography></Box>
       <ul>
-        <li>Name: {character.name}</li>
-        <li>Height: {character.height} (cm?)</li>
-        <li>Mass: {character.mass} (units?)</li>
+        <li>Height: {character.height} cm</li>
+        <li>Mass: {character.mass} kg</li>
         <li>Gender: {character.gender}</li>
         <li>Hair color: {character.hair_color}</li>
         <li>Eye color: {character.eye_color}</li>
         <li>Birth year: {character.birth_year}</li>
-        <li>Species: {character.species}</li>
+        <li>Species: {species}</li>
       </ul>
     </StyledPaper>
   )
 };
 
-function Film() {
+function Film({name}) {
   return (
-    <Grid item xs={4}>
-      <StyledPaper>Hi</StyledPaper>
+    <Grid item sm={3}>
+      <StyledPaper>{name}</StyledPaper>
     </Grid>
   );
 }
 
-function FilmList() {
+function FilmList({character}) {
   return (
-    <div>films appeared in</div>
+    <StyledPaper variant="outlined">
+      <Box sx={{ m: 1 }}><Typography variant="h5" sx={{ color: 'primary.main' }}>Films Appeared In</Typography></Box>
+      <Grid container spacing={2}>
+        {character.films.map((e) => <Film key={e} name={e}/>)}
+      </Grid>
+    </StyledPaper>
   );
 }
 
-function StarshipList() {
+function Starship({starship}) {
   return (
-    <div>starships flown in</div>
+    <Grid item sm={4}>
+      <StyledPaper>
+        <ul>
+          <li>Name: {starship.name}</li>
+          <li>Model: {starship.model}</li>
+          <li>Class: {starship.starship_class}</li>
+          <li>Length: {starship.length} meters</li>
+        </ul>
+      </StyledPaper>
+    </Grid>
+  );
+}
+
+function StarshipList({character}) {
+  return (
+    <StyledPaper variant="outlined">
+      <Box sx={{ m: 1 }}><Typography variant="h5" sx={{ color: 'primary.main' }}>Starships Flown</Typography></Box>
+      <Grid container spacing={2}>
+        {character.starships.map((e) => <Starship key={e.name} starship={e}/>)}
+      </Grid>
+    </StyledPaper>
   );
 }
 
@@ -70,24 +98,28 @@ export default function Character({characterID}) {
       return
     }
 
-    getCharacterData(characterID);
+    (async () => {
+      setLoading(true);
+      await getCharacterData(characterID);
+      await new Promise((res, rej) => setTimeout(res, 2000));
+      setLoading(false);
+    })();
 
     console.log("character id updated to", characterID);
   }, [characterID]);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          {character ? <AboutMe character={character}/> : null}
-        </Grid>
-        <Grid item xs={4}>
-          TODO
-        </Grid>
-        <Grid item xs={4}>
-          TODO
-        </Grid>
-      </Grid>
-    </Box>
+    <>
+      {loading ? <LoadingCircle/> : character ? (
+        <>
+          <Box sx={{ m: 1 }}><Typography variant="h4" sx={{ color: 'primary.main' }}>{character.name}</Typography></Box>
+          <Stack spacing={2}>
+            <AboutMe character={character}/>
+            <FilmList character={character} />
+            <StarshipList character={character} />
+          </Stack>
+        </>
+      ) : null}
+    </>
   );
 }

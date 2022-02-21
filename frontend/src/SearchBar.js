@@ -6,6 +6,10 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+import StyledPaper from "./StyledPaper";
 
 export default function SearchBar({onSelect}) {
   var [typingTimeout, setTypingTimeout] = useState();
@@ -45,27 +49,30 @@ export default function SearchBar({onSelect}) {
   }, [])
 
   return (
-    <form onSubmit={onSubmit}>
-      <Grid container spacing={2}>
-        <Grid item xs={10}>
-          <Autocomplete
-            options={characters}
-            onChange={(e, value) => {
-              onSelect(value);
-            }}
-            disableClearable
-            renderInput={(params) => <TextField {...params}
-              label="Character name"
-              value={query}
-              onInput={e => onChange(e.target.value)}
-            />}
-            getOptionLabel={(option) => option.name}
-          />
+    <StyledPaper variant="outlined">
+      <form onSubmit={onSubmit}>
+        <Box sx={{ m: 1 }}><Typography>Search for a character</Typography></Box>
+        <Grid container spacing={2}>
+          <Grid item xs={10}>
+            <Autocomplete
+              options={characters}
+              onChange={(e, value) => {
+                onSelect(value);
+              }}
+              disableClearable
+              renderInput={(params) => <TextField {...params}
+                label="Character name"
+                value={query}
+                onInput={e => onChange(e.target.value)}
+              />}
+              getOptionLabel={(option) => option.name}
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <Button variant="contained" style={{width:"100%", height:"100%"}}>Go!</Button>
+          </Grid>
         </Grid>
-        <Grid item xs={2}>
-          <Button variant="contained" style={{width:"100%", height:"100%"}}>Go!</Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+    </StyledPaper>
   );
 }
