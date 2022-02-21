@@ -1,60 +1,26 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 
-import logo from './logo.svg';
-import './App.css';
+import Container from "@mui/material/Container";
+import Box from '@mui/material/Box';
 
-function SearchBar({query, setQuery, onSearch}) {
-  function onSubmit(e) {
-    onSearch();
+import SearchBar from "./SearchBar";
+import Character from "./Character";
 
-    e.preventDefault();
-    e.stopPropagation();
-  }
+export default function App() {
+  var [character, setCharacter] = useState();
 
-  function onChange(text) {
-    //TODO: delay
-    setQuery(text);
-  }
-
-  return (
-    <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        value={query}
-        placeholder="Luke Skywalker"
-        onInput={e => onChange(e.target.value)}
-      />
-      <button>Go!</button>
-    </form>
-  )
-}
-
-function App() {
-  var [query, setQuery] = useState("");
-
-  async function search(query) {
-    var data = (await axios.get(`https://swapi.dev/api/people/?search=${query}`)).data;
-    console.log(data);
-  }
-
-  function onSearch() {
-    if(query.trim() == "") {
-      //TODO: display message
-      return;
-    }
-
-    console.log(query);
-    search(query);
+  async function onSelect(character) {
+    console.log(character);
+    setCharacter(character);
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <SearchBar query={query} setQuery={setQuery} onSearch={onSearch}/>
-      </header>
-    </div>
+    <Container>
+      <Box height="100vh">
+        <SearchBar onSelect={onSelect}/>
+        {character ? <Character character={character}/> : null}
+      </Box>
+    </Container>
   );
 }
-
-export default App;

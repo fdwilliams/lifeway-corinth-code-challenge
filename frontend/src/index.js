@@ -1,12 +1,27 @@
 import React from 'react';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { yellow, red } from '@mui/material/colors';
+import CssBaseline from '@mui/material/CssBaseline';
+
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: yellow,
+    secondary: red,
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

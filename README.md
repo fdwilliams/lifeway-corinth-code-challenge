@@ -2,8 +2,9 @@
 *(Lifeway Corinth Code Challenge)*  
 
 ## TODO
-* MUI
-* Star Wars theme
-* search autocomplete (with delay)
-  * auto select first in list; if no results, disable navigation
-* on search, append to history
+* backend
+* use card/paper-like containers for different sections of the character profile
+* header (title)
+* footer (name, date, repo url)
+[character search; character name; search button]
+* cards for starships/films?
