@@ -16,14 +16,22 @@
 ![R2-D2](screenshots/swcv-1.png)
 ![Chewbacca](screenshots/swcv-2.png)
 
+## Technologies used
+* Node.js
+  * React frontend w/ Material UI
+  * Express backend
+* [swapi.dev](https://swapi.dev)
+* Docker
+* AWS EC2 (hosting)
+
+## Hosting locally for development
+The Star Wars Character Viewer relies on Docker for deployment of the backend gateway API. To run the backend container, clone this repository, then run:
+```
+docker-compose up -d
+```
+The backend gateway API will run on port 3001. This is configurable in the docker-compose.yml file.
+
 ## Notes
 * Many human characters as having species: None. This is due to the swapi.dev bug referenced [here](https://github.com/Juriy/swapi/issues/5#issuecomment-1036982287).
 * As of 2/20/2022, the swapi.dev site was down; this was mitigated by using a backend gateway API.
 * Characters' species is displayed as a list, as swapi.dev returns a list of species for each character. It may be possible that swapi.dev returns multiple species for certain characters. However, I have yet to run into this scenario.
-
-## Development
-*TODO*
-
-## TODO
-* development documentation
-* clear search field on blur
