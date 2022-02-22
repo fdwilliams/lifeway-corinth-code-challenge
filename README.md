@@ -19,7 +19,7 @@
 ## Notes
 * Many human characters as having species: None. This is due to the swapi.dev bug referenced [here](https://github.com/Juriy/swapi/issues/5#issuecomment-1036982287).
 * As of 2/20/2022, the swapi.dev site was down; this was mitigated by using a backend gateway API.
-* Characters' species is displayed as a list, as swapi.dev returns a list of species for each character. It may be possible that swapi.dev returns multiple species for certain characters. however, I have yet to run into this scenario.
+* Characters' species is displayed as a list, as swapi.dev returns a list of species for each character. It may be possible that swapi.dev returns multiple species for certain characters. However, I have yet to run into this scenario.
 
 ## Development
 *TODO*
