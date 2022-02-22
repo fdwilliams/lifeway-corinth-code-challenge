@@ -4,6 +4,7 @@
 ## Features
 * Ability to search for Star Wars characters by name, facilitated by an autocomplete search box
 * Display of Star Wars character info such as height, hair color, films appeared in, and starships flown
+  * Each starship listing includes its model, class, and length
 * Linking to individual characters by id (e.g. Luke Skywalker is located at `/1`)
 * While data is loading, a progress circle is displayed
 
